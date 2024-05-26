@@ -68,22 +68,22 @@ public class AuthenticationController {
 
         return new ResponseEntity<>(createdUser, HttpStatus.OK);
     }
-@PostMapping({"/authenticate"})
+    @PostMapping({"/authenticate"})
     public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest,
                                           HttpServletResponse response) throws IOException, JSONException {
         try{
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    authenticationRequest.getUsername(),
+                    authenticationRequest.getUserName(),
                     authenticationRequest.getPassword()
             ));
         }catch (BadCredentialsException e){
             throw new BadCredentialsException("Incorrect username or password", e);
         }
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUserName());
 
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-        User user = userRepository.findFirstByEmail(authenticationRequest.getUsername());
+        User user = userRepository.findFirstByEmail(authenticationRequest.getUserName());
 
         response.getWriter().write(new JSONObject()
                 .put("userId", user.getId())

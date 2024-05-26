@@ -8,9 +8,9 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.awt.image.Kernel;
+
 import java.security.Key;
-import java.util.Base64;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +44,7 @@ public class JwtUtil {
         return Jwts
                 .parser()
                 .setSigningKey(getSignKey())
-                .parseClaimsJws (token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 

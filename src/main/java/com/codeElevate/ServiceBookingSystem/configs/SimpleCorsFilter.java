@@ -21,6 +21,7 @@ public class SimpleCorsFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+        // allows the Angular application to access the backend APIs
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
         Map<String, String> map = new HashMap<>();
