@@ -31,4 +31,25 @@ public class CompanyController {
     public ResponseEntity<?> getAllAdsByUserId(@PathVariable Long userId){
         return ResponseEntity.ok(companyService.getAllAds(userId));
     }
+
+    @GetMapping("/ad/{adId}")
+    public ResponseEntity<?> getAdById(@PathVariable Long adId){
+        AdDto adDto = companyService.getAdById(adId);
+        if(adDto!= null){
+            return ResponseEntity.ok(adDto);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @DeleteMapping("/ad/{adId}")
+    public ResponseEntity<?> deleteAd(@PathVariable Long adId){
+        boolean success = companyService.deleteAd(adId);
+        if(success){
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }

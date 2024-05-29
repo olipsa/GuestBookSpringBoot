@@ -43,4 +43,21 @@ public class CompanyServiceImpl implements CompanyService{
         return adRepository.findAllByUserId(userId).stream().map(Ad::getAdDto).collect(Collectors.toList());
     }
 
+    public AdDto getAdById(Long adId){
+        Optional<Ad> optionalAd = adRepository.findById(adId);
+        if(optionalAd.isPresent()){
+            return optionalAd.get().getAdDto();
+        }
+        return null;
+    }
+
+    public boolean deleteAd(Long adId){
+        Optional<Ad> optionalAd = adRepository.findById(adId);
+        if(optionalAd.isPresent()) {
+            adRepository.delete(optionalAd.get());
+            return true;
+        }
+        return false;
+    }
+
 }
